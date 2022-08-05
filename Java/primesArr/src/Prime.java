@@ -1,7 +1,5 @@
-import java.util.Arrays;
-
 public class Prime {
-	int[] prime = {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	int[] prime = {2,0,0};
 	int size = 1;
 	
 	public Prime() {
@@ -10,22 +8,43 @@ public class Prime {
 
 	public void printPrimes(int n) {
 		
-		//Check if n > size, find more primes
-		if (n > size) {
-			findPrime(prime,n);
-			for	(int j = 0; j<size;j++) {System.out.println(prime[j]);}
+		//Check if n > array size
+		//If n is bigger than current prime array size
+		//Call makeNewArr() which returns a new twice as big arr
+		//Pass this new arr through findPrime method
+		int arrSize = prime.length;
+		if (n >= arrSize) {
+			
+			//Increase array size until it is bigger than n
+			do {
+				arrSize+=arrSize;
+			} while (arrSize <= n);
+			
+			//Make a new array with the new array size
+			int[] newArr = makeNewArr(arrSize, prime);
+			findPrime(newArr,n);
+			System.out.println("Printing " + n + " prime numbers: ");
+			for	(int j = 0; j<size;j++) {System.out.println(newArr[j]);}
+		} 
+		// if n < = 1
+		else if (n <= 1){
+			System.out.println("Printing " + n + " prime numbers: ");
+			for	(int k = 0; k < n; k++) {System.out.println(prime[k]);}
 		}
 		
-		
-		
-		
-		//If size = size of prime array, create a new array that is twice the size
-		//Then copy the original data to the new array
-		
-		//Print the first n primes
-		
-		
+		else {
+			findPrime(prime,n);
+			System.out.println("Printing " + n + " prime numbers: ");
+			for	(int j = 0; j<size;j++) {System.out.println(prime[j]);}
+		}
 	}
+	
+	public int[] makeNewArr(int arrSize, int[] a) {
+		int[] newPrime = new int[arrSize];
+		System.arraycopy(a, 0, newPrime, 0, a.length);
+        return newPrime;
+	}
+	
 	
 	//Find largest prime
 	public int findMax(int[] arr) {
@@ -40,24 +59,18 @@ public class Prime {
 	//Check that the current integer is not divisible by each of the known prime
 	public void findPrime(int[] arr, int n) {
 		
-//		int max = 2;
-//		for	(int i =0; i<arr.length; i++) {
-//			if	(arr[i] > max) {max = arr[i];}
-//		}
-		
-		int localMax = findMax(prime);
+		int localMax = findMax(arr);
 		do {
 			//Increment biggest prime number by 1
 			localMax++;
-			System.out.println("Max " + localMax);
-			int mod = 0;
+			
 			//Loop through the array until index[size]
 			//Divide max by every prime numbers inside prime[]
 			//Size = number of prime numbers within the array
+			int mod = 0;
 			for (int i =0; i< size;i++) {
 				mod = localMax%arr[i];
-				System.out.println("mod: " + mod);
-				System.out.println("size: " + size);
+				
 				//If mod = 0, it means max divides the prime number
 				//Therefore max is not prime
 				if	(mod == 0) {break;}
@@ -71,29 +84,12 @@ public class Prime {
 		
 	}
 	
-	
-	
-	public int[] getPrime() {
-		return prime;
-	}
-
-	public void setPrime(int[] prime) {
-		this.prime = prime;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
-	}
 
 	public static void main(String[] args) {
 		Prime prime1 = new Prime();
-//		prime1.findPrime(prime1.getPrime(), 10);
-//		System.out.println(Arrays.toString(prime1.getPrime()));
-//		System.out.println(prime1.getSize());
+		prime1.printPrimes(0);
+		prime1.printPrimes(1);
+		prime1.printPrimes(2);
 		prime1.printPrimes(10);
 	}
 }

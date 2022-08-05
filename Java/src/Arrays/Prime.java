@@ -1,3 +1,4 @@
+package Arrays;
 public class Prime {
 	int[] prime = {2,0,0};
 	int size = 1;

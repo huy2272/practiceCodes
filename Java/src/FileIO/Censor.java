@@ -53,13 +53,10 @@ public class Censor {
 
 			//Create a string array of bad words
 			String[] bad = list.split(",");
-			
-			for (int i=0; i < bad.length;i++) {
-				System.out.println(bad[i]);
-			}
 			String dest = "";
 			
 			//Replacing each bad word with an appropriate size "*"
+			//Then update the String src, and loop again
 			for	(String i:bad) {
 				int length = i.length();
 				String ast = "*";
@@ -67,9 +64,10 @@ public class Censor {
 					ast+="*";
 				}
 				dest = src.replace(i, ast);
+				src = dest;
 			}
-			System.out.println(dest);
 			
+			//Write the new String to the destination file
 			PrintWriter writer = new PrintWriter(destination);
 			writer.write(dest);
 			writer.close();

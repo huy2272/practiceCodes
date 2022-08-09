@@ -88,8 +88,6 @@ public class Prime {
 
 	public static void main(String[] args) {
 		Prime prime1 = new Prime();
-		prime1.printPrimes(0);
-		prime1.printPrimes(1);
 		prime1.printPrimes(2);
 		prime1.printPrimes(10);
 	}

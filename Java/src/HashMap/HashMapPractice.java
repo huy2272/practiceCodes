@@ -30,7 +30,6 @@ public class HashMapPractice {
 				}else {
 					ans += first;
 				}
-				System.out.println("Answer is: " + ans);
 			}else {
 				System.out.println("Limit reached");
 				ans += first;

@@ -7,5 +7,8 @@ public class SolutionDriver {
 		int target =9;
 		s.twoSum(nums, target);
 		
+		//Testing for dayOfTheWeek
+		dayOfTheWeek j =  new dayOfTheWeek();
+		j.solution();
 	}
 }

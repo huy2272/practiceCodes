@@ -5,7 +5,6 @@ import java.util.Stack;
 public class Palindrome {
 	
 	public boolean isPalindrome(ListNode head) {
-		Stack<Integer> listStack = new Stack<>();
 		Stack<Integer> stack = new Stack<>() ;
 	      ListNode temp = head ;
 	      while(temp != null){
@@ -23,6 +22,6 @@ public class Palindrome {
 	      }
 	      
 	      System.out.println("Is it a palindrome? " + stack.isEmpty());
-	      return stack.isEmpty() ;
+	      return stack.isEmpty();	    
 	}
 }

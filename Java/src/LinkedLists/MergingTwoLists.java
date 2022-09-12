@@ -1,22 +1,6 @@
 package LinkedLists;
 
 public class MergingTwoLists {
-	public class ListNode {
-		int val;
-		ListNode next;
-
-		ListNode() {
-		}
-
-		ListNode(int val) {
-			this.val = val;
-		}
-
-		ListNode(int val, ListNode next) {
-			this.val = val;
-			this.next = next;
-		}
-	}
 
 	public ListNode merge(ListNode list1, ListNode list2) {
 		ListNode curr1 = list1;

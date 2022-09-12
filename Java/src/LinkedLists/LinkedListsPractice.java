@@ -27,8 +27,8 @@ public class LinkedListsPractice {
 //		}
 		
 		ListNode a = new ListNode(1);
-		ListNode b = new ListNode(2);
-		ListNode c = new ListNode(2);
+		ListNode b = new ListNode(0);
+		ListNode c = new ListNode(0);
 		ListNode d = new ListNode(1);
 		a.next = b;
 		b.next = c;

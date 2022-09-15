@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\huy22\\source\\repos\\CSharp\\CSharp\\CSharp.csproj",
-      "projectName": "CSharp",
-      "projectPath": "C:\\Users\\huy22\\source\\repos\\CSharp\\CSharp\\CSharp.csproj",
+      "projectUniqueName": "C:\\Users\\huy22\\Desktop\\practiceCodes\\CSharp\\stringMethods\\stringMethods\\stringMethods.csproj",
+      "projectName": "stringMethods",
+      "projectPath": "C:\\Users\\huy22\\Desktop\\practiceCodes\\CSharp\\stringMethods\\stringMethods\\stringMethods.csproj",
       "packagesPath": "C:\\Users\\huy22\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\huy22\\source\\repos\\CSharp\\CSharp\\obj\\",
+      "outputPath": "C:\\Users\\huy22\\Desktop\\practiceCodes\\CSharp\\stringMethods\\stringMethods\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\huy22\\AppData\\Roaming\\NuGet\\NuGet.Config",

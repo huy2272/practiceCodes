@@ -1,5 +1,6 @@
-﻿using System;
-class stringPractice
+﻿namespace stringMethods;
+
+class StringMethods
 {
     static void Main(string[] args)
     {

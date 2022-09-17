@@ -10,7 +10,7 @@ namespace Classes
     {
         public string Name;
 
-        public void introduce(string to)
+        public void Introduce(string to)
         {
             Console.WriteLine("Hi {0}, I am {1}", to, Name);
         }
@@ -28,7 +28,7 @@ namespace Classes
         {
             //Since we made the person method static, we don't have to make a person object
             var p = Person.Parse("John");
-            p.introduce("Tom");
+            p.Introduce("Tom");
         }
     }
 }

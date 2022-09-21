@@ -1,2 +1,4 @@
 # practiceCodes
-A repo used for practicing new coding concepts
+A repo used for coding practice.
+
+Questions mostly from LeetCode.

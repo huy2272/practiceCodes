@@ -76,16 +76,16 @@ public class Obbonacci {
 			for (int i = 0; i <= n; i++) {
 //				writer.write(String.valueOf(oddonacci(i)));
 //				writer.write(String.valueOf(oddoTail(n,1,1,1)));
-				writer.write(String.valueOf(oddonacciRecursive(i)));
+				writer.write(String.valueOf(oddonacci(i)));
 				writer.println();
 
 				//Record the time of every 5 oddonacci number
-//				if (i % 5 == 0) {
-//					long current = System.currentTimeMillis() - start;
-//					writer2.write("Run time:");
-//					writer2.write(String.valueOf(current));
-//					writer2.println();
-//				}
+				if (i % 5 == 0) {
+					long current = System.currentTimeMillis() - start;
+					writer2.write("Run time:");
+					writer2.write(String.valueOf(current));
+					writer2.println();
+				}
 
 			}
 			writer.flush();

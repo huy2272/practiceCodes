@@ -82,32 +82,5 @@ public class Fibonacci {
 		return nthOddonacciNumber;
 	}
 
-	public static void main(String[] args) {
-		int n = 12;
-		System.out.println("fib(" + n + ") = " + oddoTail(n, 1, 1, 1));
-//		int n=50;
-//		oddonacciCache= new long[n+1];
-//		Fibonacci test = new Fibonacci();
-//		for(int i=0; i<=n;i++) {
-//			System.out.print(oddonacci(i)+ " ");
-//			}
-//		try {
-//			File obj = new File("OddoOut.txt");
-//			if (obj.createNewFile()) {System.out.println("File created: " + obj.getName());} 
-//			else {System.out.println("File already exists.");}
-//			
-//			FileOutputStream fout = new FileOutputStream("OddoOut.txt");
-//			PrintWriter writer = new PrintWriter(fout);
-//			for (int i = 5; i <= 20; i=i+5) {
-//				writer.write(String.valueOf(test.oddonacciRecursive(i)));
-//				writer.println();
-//			}
-//			writer.flush();
-//			
-//		} catch (IOException e) {
-//			// TODO: handle exception
-//			System.out.println("An error occurred when trying to write to a file");
-//			e.printStackTrace();
-//		}
-	}
+
 }

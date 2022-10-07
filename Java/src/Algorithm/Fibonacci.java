@@ -20,8 +20,8 @@ public class Fibonacci {
 //		
 //		return arr[n];
 //	}
-	
-	//Find the oddonacci sequence iteratively 
+
+	// Find the oddonacci sequence iteratively
 //	static int oddonacci(int n) {
 //		if	(n <= 2) {return n;}
 //		
@@ -39,61 +39,75 @@ public class Fibonacci {
 //		
 //		return arr[n];
 //	}
-	
-	private static long[] oddonacciCache;
-	static int oddonacciRecursive(int n) {
-		//We set the first 3 elements
-		//Then by using these base elements we can calculate the rest of the sequence
-		if(n==0) return 1;
-        if(n==1) return 1;
-        if(n==2) return 1;
-        //Here the time complexity is horrible, it is exponential it should be 3^n (Ternary recursion???) 
-        //To improve we have to use linear recursion
-        else 
-            return oddonacciRecursive(n-1)+oddonacciRecursive(n-2)+oddonacciRecursive(n-3);
+	static int oddoTail(int n, int a, int b, int c) {
+
+		if (n == 1)
+			return a;
+		return oddoTail(n - 1, b, c, a + b + c);
 	}
-	
-	static long oddonacci(int n) {
-		if((n==0)||(n==1)||(n==2)) //The first 3 values predetermined for the oddonacci sequence
+
+	private static long[] oddonacciCache;
+
+	static int oddonacciRecursive(int n) {
+		// We set the first 3 elements
+		// Then by using these base elements we can calculate the rest of the sequence
+		if (n == 0)
 			return 1;
-       
-		else if(n<=1) {
-			return n;//base case
+		if (n == 1)
+			return 1;
+		if (n == 2)
+			return 1;
+		// Here the time complexity is horrible, it is exponential it should be 3^n
+		// (Ternary recursion???)
+		// To improve we have to use linear recursion
+		else
+			return oddonacciRecursive(n - 1) + oddonacciRecursive(n - 2) + oddonacciRecursive(n - 3);
+	}
+
+	static long oddonacci(int n) {
+		if ((n == 0) || (n == 1) || (n == 2)) // The first 3 values predetermined for the oddonacci sequence
+			return 1;
+
+		else if (n <= 1) {
+			return n;// base case
 		}
-		
-		if (oddonacciCache[n] !=0) {//check if the cache already has a value inside it
+
+		if (oddonacciCache[n] != 0) {// check if the cache already has a value inside it
 			return oddonacciCache[n];
 		}
-	
-		long nthOddonacciNumber= (oddonacci(n-1)+oddonacci(n-2)+oddonacci(n-3));//oddonacci number at n
-		oddonacciCache[n]=nthOddonacciNumber;//storing the oddonaccis already calculated within the array
-		
+
+		long nthOddonacciNumber = (oddonacci(n - 1) + oddonacci(n - 2) + oddonacci(n - 3));// oddonacci number at n
+		oddonacciCache[n] = nthOddonacciNumber;// storing the oddonaccis already calculated within the array
+
 		return nthOddonacciNumber;
 	}
+
 	public static void main(String[] args) {
-		int n=50;
-		oddonacciCache= new long[n+1];
-		Fibonacci test = new Fibonacci();
-		for(int i=0; i<=n;i++) {
-			System.out.print(oddonacci(i)+ " ");
-			}
-		try {
-			File obj = new File("OddoOut.txt");
-			if (obj.createNewFile()) {System.out.println("File created: " + obj.getName());} 
-			else {System.out.println("File already exists.");}
-			
-			FileOutputStream fout = new FileOutputStream("OddoOut.txt");
-			PrintWriter writer = new PrintWriter(fout);
-			for (int i = 5; i <= 20; i=i+5) {
-				writer.write(String.valueOf(test.oddonacciRecursive(i)));
-				writer.println();
-			}
-			writer.flush();
-			
-		} catch (IOException e) {
-			// TODO: handle exception
-			System.out.println("An error occurred when trying to write to a file");
-			e.printStackTrace();
-		}
+		int n = 12;
+		System.out.println("fib(" + n + ") = " + oddoTail(n, 1, 1, 1));
+//		int n=50;
+//		oddonacciCache= new long[n+1];
+//		Fibonacci test = new Fibonacci();
+//		for(int i=0; i<=n;i++) {
+//			System.out.print(oddonacci(i)+ " ");
+//			}
+//		try {
+//			File obj = new File("OddoOut.txt");
+//			if (obj.createNewFile()) {System.out.println("File created: " + obj.getName());} 
+//			else {System.out.println("File already exists.");}
+//			
+//			FileOutputStream fout = new FileOutputStream("OddoOut.txt");
+//			PrintWriter writer = new PrintWriter(fout);
+//			for (int i = 5; i <= 20; i=i+5) {
+//				writer.write(String.valueOf(test.oddonacciRecursive(i)));
+//				writer.println();
+//			}
+//			writer.flush();
+//			
+//		} catch (IOException e) {
+//			// TODO: handle exception
+//			System.out.println("An error occurred when trying to write to a file");
+//			e.printStackTrace();
+//		}
 	}
 }

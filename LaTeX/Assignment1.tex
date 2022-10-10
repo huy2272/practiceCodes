@@ -16,8 +16,8 @@
 \title{SOEN 331-S:Formal Methods\\for Software Engineering\\
 \ \\
 Assignment 1}
-\author{Khanh Huy Nguyen, Mahanaim Rubin Yo}
-\date{\today}
+\author{40125396 Khanh Huy Nguyen, 40178119 Mahanaim Rubin Yo}
+\date{October 10, 2022}
 \begin{spacing}{1.5}
 \begin{document}
 \maketitle
@@ -137,7 +137,7 @@ interpreted as ``[person] a has received a request from [person] b to connect on
             \noindent where
 
             \[
-                  laptops = \\
+                  airplanes = \\
                   \hspace{5mm} \{ \\
                   \hspace{10mm} A320 \mapsto Airbus,\\
                   \hspace{10mm} A330 \mapsto Airbus,\\
@@ -147,8 +147,8 @@ interpreted as ``[person] a has received a request from [person] b to connect on
                   \hspace{10mm} 747 \mapsto Boeing,\\
                   \hspace{10mm} Superjet100 \mapsto Sukhoi,\\
                   \hspace{10mm} C919 \mapsto Comac,\\
-                  \hspace{10mm} Global7500 \mapsto Bombardier\\
-                  \hspace{10mm} Global8000 \mapsto Bombardier\\
+                  \hspace{10mm} Global7500 \mapsto Bombardier,\\
+                  \hspace{10mm} Global8000 \mapsto Bombardier,\\
                   \hspace{10mm} E170 \mapsto Embraer\\
                   \hspace{10mm} E175 \mapsto Embraer\\
                   \hspace{5mm} \}
@@ -157,18 +157,64 @@ interpreted as ``[person] a has received a request from [person] b to connect on
             \begin{enumerate}
 
                   \item What is the value of the following expression?\[ \{ A330, 747 \}  \lhd airplanes \]
-                        \noindent \underline{Answer}:
+                        \noindent \underline{Answer}:\\
+                        \(\{\\
+                        \hspace{10mm} A330 \mapsto Airbus,\\
+                        \hspace{10mm} 747 \mapsto Boeing\\
+                        \}\)
 
                   \item What is the result of the expression? \[ airplanes \rhd \{ Comac, Embraer \} \]
-                        \noindent \underline{Answer}:
+                        \noindent \underline{Answer}:\\
+                        \(\{\\
+                        \hspace{10mm} C919 \mapsto Comac,\\
+                        \hspace{10mm} E170 \mapsto Embraer,\\
+                        \hspace{10mm} E175 \mapsto Embraer,\\
+                        \}\)
 
                   \item What is the result of the expression? \[\{ A320, A330, A350, E170 \} \ndres airplanes\]
-                        \noindent \underline{Answer}:
+                        \noindent \underline{Answer}:\\
+                        \(\{ \\
+                        \hspace{10mm} A380 \mapsto Airbus,\\
+                        \hspace{10mm} 737 \mapsto Boeing,\\
+                        \hspace{10mm} 747 \mapsto Boeing,\\
+                        \hspace{10mm} Superjet100 \mapsto Sukhoi,\\
+                        \hspace{10mm} C919 \mapsto Comac,\\
+                        \hspace{10mm} Global7500 \mapsto Bombardier\\
+                        \hspace{10mm} Global8000 \mapsto Bombardier\\
+                        \hspace{10mm} E175 \mapsto Embraer\\
+                        \}\)
                   \item What is the result of the expression? \[ airplanes \nrres \{ Airbus, Boeing \} \]
-                        \noindent \underline{Answer}:
+                        \noindent \underline{Answer}:\\
+                        \(\{ \\
+                        \hspace{10mm} Superjet100 \mapsto Sukhoi,\\
+                        \hspace{10mm} C919 \mapsto Comac,\\
+                        \hspace{10mm} Global7500 \mapsto Bombardier,\\
+                        \hspace{10mm} Global8000 \mapsto Bombardier,\\
+                        \hspace{10mm} E170 \mapsto Embraer,\\
+                        \hspace{10mm} E175 \mapsto Embraer\\
+                        \}\)
                   \item Consider the following expression: \[ airplanes \oplus \{ Su\_80 \mapsto Sukhoi \} \]
                         \noindent Comment on the deployment of the expression in the context of a database table.
-                        \noindent \underline{Answer}:
+                        \noindent \underline{Answer}:\\
+                        \(
+                        airplanes = \\
+                        \hspace{5mm} \{ \\
+                        \hspace{10mm} Su\_80 \mapsto SuKhoi,\\
+                        \hspace{10mm} A320 \mapsto Airbus,\\
+                        \hspace{10mm} A330 \mapsto Airbus,\\
+                        \hspace{10mm} A350 \mapsto Airbus,\\
+                        \hspace{10mm} A380 \mapsto Airbus,\\
+                        \hspace{10mm} 737 \mapsto Boeing,\\
+                        \hspace{10mm} 747 \mapsto Boeing,\\
+                        \hspace{10mm} Superjet100 \mapsto Sukhoi,\\
+                        \hspace{10mm} C919 \mapsto Comac,\\
+                        \hspace{10mm} Global7500 \mapsto Bombardier,\\
+                        \hspace{10mm} Global8000 \mapsto Bombardier,\\
+                        \hspace{10mm} E170 \mapsto Embraer\\
+                        \hspace{10mm} E175 \mapsto Embraer\\
+                        \hspace{5mm} \}\)\\
+                        \noindent Relational overriding can model database updates (addition of records).
+                        However, the expression does not have apermanent effect on the database since it is not an assignment statement.
             \end{enumerate}
 \end{itemize}
 \end{spacing}

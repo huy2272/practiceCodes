@@ -1,0 +1,375 @@
+\documentclass[12pt]{article}
+\usepackage{graphics}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{alltt}
+\usepackage{array}	
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{verbatim}
+\usepackage{setspace}
+\usepackage{listings}
+
+\usepackage{amssymb,amsmath, amsthm}
+\usepackage{zed-csp}
+\usepackage[cc]{titlepic}
+\usepackage{enumitem}
+\title{SOEN 331-S:Formal Methods\\for Software Engineering\\
+\ \\
+Assignment 1}
+\author{Khanh Huy Nguyen, Mahanaim Rubin Yo}
+\date{\today}
+\begin{spacing}{1.5}
+\begin{document}
+\maketitle
+
+
+
+\newpage
+\section{Predicate Logic}
+
+
+\noindent In the domain of all people in a room, consider the predicate received request(a, b) that is
+interpreted as ``[person] a has received a request from [person] b to connect on some social platform.''
+\begin{enumerate}
+      \item How are the following two expresions translated into plain English? Are the two expressions logically equivalent?
+            \begin{enumerate} [label=\alph*)]
+                  \item \( \forall a \exists b \hspace{1mm} received\_request(a,b). \)\\
+                        \noindent \underline{Solution}: Every person in the room has received a request to connect on some social media from some (at least one) person.
+                  \item \(\exists b \forall a \hspace{1mm} received\_request(a,b).\)\\
+                        \noindent \underline{Solution}: There is a person in the room who has requested to connect on some social platfrom to all the people in the room.
+                  \item The two expressions a) and b) are {\bf not} logically equivalent.
+            \end{enumerate}
+
+      \item Discuss in detail whether we can claim the following:
+            \[\forall a \exists b \hspace{1mm} received\_request(a,b) \rightarrow \exists b \forall a \hspace{1mm} received\_request(a,b).\]
+            \begin{enumerate} [label=\roman*)]
+                  \item If ``Every person in the room has received a request from someone (at least one) in the room to connect on some social platform'',
+                        \noindent we cannot safely assumed that ``There is someone who has requested to connect on some social platform to every person in the room''.
+                        \noindent It is {\bf not} the case that \(\forall a \exists b \hspace{1mm} received\_request(a,b) \rightarrow \exists b \forall a \hspace{1mm} received\_request(a,b).\)
+
+            \end{enumerate}
+
+      \item Discuss in detail whether we can claim the following:
+            \[\exists b \forall a \hspace{1mm} received\_request(a,b) \rightarrow \forall a \exists b \hspace{1mm} received\_request(a,b).\]
+            \begin{enumerate} [label=\roman*)]
+                  \item If ``There is a person in the room that has requested to connect with everyone in the room on some social platform'',
+                        \noindent we can safely assumed that ``Everyone has received a request to connect on some social platform from someone (at least one)''.
+                        \noindent It {\bf is} the case that \(\exists b \forall a \hspace{1mm} received\_request(a,b) \rightarrow \forall a \exists b \hspace{1mm} received\_request(a,b).\)
+            \end{enumerate}
+      \item How are the following two expresions translated into plain English? Are the two expressions logically equivalent?
+            \begin{enumerate} [label=\alph*)]
+                  \item \( \forall b \exists a \hspace{1mm} received\_request(a,b). \)\\
+                        \noindent \underline{Solution}: Everyone in the room has requested to connect on some social platform with someone.
+                  \item \(\exists a \forall b \hspace{1mm} received\_request(a,b).\)\\
+                        \noindent \underline{Solution}: There is someone in the room whom has received a request to connect on some social platform from everyone in the room.
+                  \item The two expressions a) and b) {\bf are} logically equivalent.
+            \end{enumerate}
+
+\end{enumerate}
+
+
+\newpage
+\section{Unordered and ordered structures}
+
+\noindent \text Consider the following two sets:
+\begin{itemize}
+      \item
+            \(
+            OS =
+            \{
+            \hspace{1mm} MacOS,
+            \hspace{1mm} Linux,
+            \hspace{1mm} BSD,
+            \hspace{1mm} Windows,
+            \hspace{1mm} Unix
+            \}, and
+            \)
+      \item
+            \(
+            My\_OS =
+            \{
+            \hspace{1mm} BSD,
+            \hspace{1mm} Unix
+            \}.
+            \)
+            \begin{enumerate}
+                  \item Is the following declaration acceptable:$My\_OS : \mathbb{P} OS$ ? Explain
+
+                  \item Is $\mathbb{P} OS$ a legitimate type? Explain
+
+                  \item What is the result of the following statement signify?  $My\_OS : OS.$ Is the statement acceptable? Explain
+
+                  \item Is $ MacOS \in \mathbb{P} OS$ ? Explain
+
+                  \item Is OS a legitimate type?
+                   
+                  \item Is $ \{\} \in \mathbb{P} OS$ ? Explain
+
+                  \item Is $ \{Linux, BSD\} \in \mathbb{P} OS$ ? Explain
+                        
+                  \item $ \{\{\}\} \in \mathbb{P} OS$ ? Explain
+                  
+                  \item Is $ \{\} \in OS$ ? Explain
+                  
+                  \item If we define variable $My\_Computer : \mathbb{P} OS$, is \{\} a legitimate value for variable $My\_Computer$? Explain.
+                  
+                  \item If we define variable $My\_Computer : \{Windows\}$, would the statement make $My\_Computer$ an atomic variable?
+                  
+                  \item Is $\{\{BSD, MacOS\}\} \subset \mathbb{P} OS$ Explain.
+                  
+                  \item Is $My\_OS \subset \mathbb{P} OS$ Explain.
+                  
+                  \item Is $\{\{BSD, MacOS\}\} \in \mathbb{P} OS$ Explain.
+            \end{enumerate}
+            \newpage
+            \begin{enumerate}
+
+                  \item How do we interpret the expression $Favorite : \mathbb{P} Phone$?
+
+                  \item Is $\mathbb{P} Phone$ a legitimate type?
+
+                  \item What is the nature of the variable in $Favorite : \mathbb{P} Phone$? (i.e. atomic or composite?)
+
+                  \item Is $Apple \in \mathbb{P} Phone$?
+
+                  \item Is $\{ Apple \} \in \mathbb{P} Phone$?
+
+                  \item Is $\{ \{ \} \} \in \mathbb{P} Phone$?
+
+                  \item Is $\{ \} \in \mathbb{P} Phone$?
+
+                  \item If we define variable $Favorite : \mathbb{P} Phone$, is $\{ \}$ a legitimate value for variable $Favorite$?
+
+                  \item Is $Favorite \in \mathbb{P} Phone$?
+
+                  \item Is $Favorite \subset \mathbb{P} Phone$?
+
+            \end{enumerate}
+
+            \noindent \underline{Solution}:
+
+            \begin{enumerate}
+
+                  \item How do we interpret the expression $Favorite : \mathbb{P} Phone$? \underline{Answer}: This is  interpreted as ``The variable $Favorite$ can assume any value supported by the powerset of $Phone$.
+
+                  \item Is $\mathbb{P} Phone$ a legitimate type? \textbf{Yes.}
+
+                  \item What is the nature of the variable in $Favorite : \mathbb{P} Phone$? \underline{Answer}: Variable $Favorite$ is a \textbf{set}.
+
+                  \item Is $Apple \in \mathbb{P} Phone$? \textbf{No}.
+
+                  \item Is $\{ Apple \} \in \mathbb{P} Phone$?  \textbf{Yes}.
+
+                  \item Is $\{ \{ \} \} \in \mathbb{P} Phone$? \textbf{No}.
+
+                  \item Is $\{ \} \in \mathbb{P} Phone$? \textbf{Yes}.
+
+                  \item If we define variable $favorite : \mathbb{P} Phone$, is $\{ \}$ a legitimate value for variable $Favorite$? \textbf{Yes}.
+
+                  \item Is $Favorite \in \mathbb{P} Phone$? \textbf{Yes}.
+
+                  \item Is $Favorite \subset \mathbb{P} Phone$? \textbf{No}.
+
+            \end{enumerate}
+
+      \item Consider the following relation:
+
+            \[ laptops : Model \leftrightarrow Brand \]
+
+            \noindent where
+
+            \[
+                  laptops = \\
+                  \hspace{5mm} \{ \\
+                  \hspace{10mm} legion5 \mapsto lenovo,\\
+                  \hspace{10mm} macbookair \mapsto apple,\\
+                  \hspace{10mm} xps15 \mapsto dell,\\
+                  \hspace{10mm} spectre \mapsto hp,\\
+                  \hspace{10mm} xps13 \mapsto dell,\\
+                  \hspace{10mm} swift3 \mapsto acer,\\
+                  \hspace{10mm} macbookpro \mapsto apple,\\
+                  \hspace{10mm} dragonfly \mapsto hp,\\
+                  \hspace{10mm} envyx360 \mapsto hp\\
+                  \hspace{5mm} \}
+            \]
+
+            \begin{enumerate}
+
+                  \item What is the domain and the range of the relation?
+
+                        \noindent \underline{Answer}:
+
+                        \begin{itemize}
+                              \item The domain is defined as:  % \textbf{\underline{Marking:  0.5 pt}}
+                                    \[
+                                          \dom laptops = \\
+                                          \hspace{5mm} \{ \\
+                                          \hspace{10mm} legion5,\\
+                                          \hspace{10mm} macbookair,\\
+                                          \hspace{10mm} xps15,\\
+                                          \hspace{10mm} spectre,\\
+                                          \hspace{10mm} xps13,\\
+                                          \hspace{10mm} swift3,\\
+                                          \hspace{10mm} macbookpro,\\
+                                          \hspace{10mm} dragonfly,\\
+                                          \hspace{10mm} envyx360\\
+                                          \hspace{5mm} \}
+                                    \]
+
+
+                              \item The range is defined as:  $\ran~laptops = \{ lenovo, apple, dell, hp, acer \}$.
+
+
+                        \end{itemize}
+
+
+                  \item What is the result of the expression
+
+                        \[ \{ xps15, xps13, swift3, envyx360 \}  \lhd laptops \]
+
+                        \noindent What is the meaning of operator $\lhd$ and where would you deploy such operator in the context of a database management system?
+
+                        \newpage
+
+                        \noindent \underline{Answer}:
+
+                        \noindent The result is
+
+                        \[ \{ xps15, xps13, swift3, envyx360 \}  \lhd laptops = \\
+                              \hspace{5mm} \{ \\
+                              \hspace{10mm} xps15 \mapsto dell,\\
+                              \hspace{10mm} xps13 \mapsto dell,\\
+                              \hspace{10mm} swift3 \mapsto acer,\\
+                              \hspace{10mm} envyx360 \mapsto hp\\
+                              \hspace{5mm} \}
+                        \]
+
+                        \noindent Domain restriction selects pairs based on their first element. We deploy such operators to model database queries.
+
+
+                  \item What is the result of the expression
+
+                        \[ laptops \rhd \{ lenovo, hp \} \]
+
+                        \noindent What is the meaning of operator $\rhd$ and where would you deploy such operator in the context of a database management system?
+
+                        \noindent \underline{Answer}:
+
+                        \noindent The result is
+
+
+                        \[ laptops \rhd \{ lenovo, hp \} = \\
+                              \hspace{5mm} \{ \\
+                              \hspace{10mm} legion5 \mapsto lenovo,\\
+                              \hspace{10mm} spectre \mapsto hp,\\
+                              \hspace{10mm} dragonfly \mapsto hp,\\
+                              \hspace{10mm} envyx360 \mapsto hp\\
+                              \hspace{5mm} \}
+                        \]
+
+                        \noindent Range restriction selects pairs based on their second element. We deploy such operators to model database queries.
+
+
+                  \item What is the result of the expression
+
+                        \[ \{ legion5, xps15, xps13, dragonfly \} \ndres laptops \]
+
+                        \noindent What is the meaning of operator $\ndres$ and where would you deploy such operator in the context of a database management system?
+
+                        \noindent \underline{Answer}:
+
+                        \noindent \noindent The result is
+
+                        \[ \{ legion5, xps15, xps13, dragonfly \} \ndres laptops = \\
+                              \hspace{5mm} \{ \\
+                              \hspace{10mm} macbookair \mapsto apple,\\
+                              \hspace{10mm} spectre \mapsto hp,\\
+                              \hspace{10mm} swift3 \mapsto acer,\\
+                              \hspace{10mm} macbookpro \mapsto apple,\\
+                              \hspace{10mm} envyx360 \mapsto hp\\
+                              \hspace{5mm} \}
+                        \]
+
+                        \noindent  Domain subtraction removes elements from the domain of the relation. We deploy such operation to model deletion of records.
+
+
+                  \item What is the result of the expression
+
+                        \[ laptops \nrres \{ apple, dell, hp \} \]
+
+                        \noindent What is the meaning of operator $\nrres$ and where would you deploy such operator in the context of a database management system?
+
+                        \newpage
+
+                        \noindent \underline{Answer}:
+
+
+                        \noindent \noindent The result is
+
+                        \[
+                              laptops \nrres \{ apple, dell, hp \} = \\
+                              \hspace{5mm} \{ \\
+                              \hspace{10mm} legion5 \mapsto lenovo,\\
+                              \hspace{10mm} swift3 \mapsto acer\\
+                              \hspace{5mm} \}
+                        \]
+
+
+                        \noindent  Range subtraction removes elements from the codomain of the relation. We deploy such operation to model database updates (deletion of records). % \textbf{\underline{Marking:  1.5 pts}}
+
+
+
+                  \item Consider the following expression
+
+                        \[ laptops \oplus \{ ideapad \mapsto lenovo \} \]
+
+
+                        \begin{enumerate}
+                              \item What is the result of the expression?
+
+                              \item What is the meaning of operator $\oplus$ and where would you deploy such operator in the context of a database management system?
+
+                              \item Does the result of the expression have a permanent effect on the database (relation)? If not, describe in detail how would you ensure a permanent effect.
+
+                        \end{enumerate}
+
+                        \newpage
+
+                        \noindent \underline{Answer}:
+
+
+                        \begin{enumerate}
+                              \item  The result is
+
+                                    \[ laptops \oplus \{ ideapad \mapsto lenovo \} = \\
+                                          \hspace{5mm} \{ \\
+                                          \hspace{10mm} ideapad \mapsto lenovo,\\
+                                          \hspace{10mm} legion5 \mapsto lenovo,\\
+                                          \hspace{10mm} macbookair \mapsto apple,\\
+                                          \hspace{10mm} xps15 \mapsto dell,\\
+                                          \hspace{10mm} spectre \mapsto hp,\\
+                                          \hspace{10mm} xps13 \mapsto dell,\\
+                                          \hspace{10mm} swift3 \mapsto acer,\\
+                                          \hspace{10mm} macbookpro \mapsto apple,\\
+                                          \hspace{10mm} dragonfly \mapsto hp,\\
+                                          \hspace{10mm} envyx360 \mapsto hp\\
+                                          \hspace{5mm} \}
+                                    \]
+
+                              \item Relational overriding can model database updates (addition of records).
+
+
+                              \item The expression does not have a permanent effect on the database (relation). To ensure a permanent effect on the relation, we need to define an assignment statement
+
+                                    \[ laptops' = laptops \oplus \{ ideapad \mapsto lenovo \} \]
+
+                                    \noindent which reads ``The value of variable (relation) $laptops$ is assigned the result of the expression on the right-hand-side of the assignment statement.''
+
+                        \end{enumerate}
+            \end{enumerate}
+
+\end{itemize}
+
+\end{spacing}
+
+\end{document}

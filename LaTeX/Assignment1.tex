@@ -93,283 +93,83 @@ interpreted as ``[person] a has received a request from [person] b to connect on
             \}.
             \)
             \begin{enumerate}
-                  \item Is the following declaration acceptable:$My\_OS : \mathbb{P} OS$ ? Explain
-
-                  \item Is $\mathbb{P} OS$ a legitimate type? Explain
-
-                  \item What is the result of the following statement signify?  $My\_OS : OS.$ Is the statement acceptable? Explain
-
-                  \item Is $ MacOS \in \mathbb{P} OS$ ? Explain
-
-                  \item Is OS a legitimate type?
-                   
-                  \item Is $ \{\} \in \mathbb{P} OS$ ? Explain
-
-                  \item Is $ \{Linux, BSD\} \in \mathbb{P} OS$ ? Explain
-                        
-                  \item $ \{\{\}\} \in \mathbb{P} OS$ ? Explain
-                  
-                  \item Is $ \{\} \in OS$ ? Explain
-                  
-                  \item If we define variable $My\_Computer : \mathbb{P} OS$, is \{\} a legitimate value for variable $My\_Computer$? Explain.
-                  
-                  \item If we define variable $My\_Computer : \{Windows\}$, would the statement make $My\_Computer$ an atomic variable?
-                  
-                  \item Is $\{\{BSD, MacOS\}\} \subset \mathbb{P} OS$ Explain.
-                  
-                  \item Is $My\_OS \subset \mathbb{P} OS$ Explain.
-                  
-                  \item Is $\{\{BSD, MacOS\}\} \in \mathbb{P} OS$ Explain.
+                  \item Is the following declaration acceptable:$My\_OS : \mathbb{P} OS$ ? Explain\\
+                        \noindent Yes, because My\_OS is a set, it can assume values supported by $\mathbb{P} OS$. The above declaration is intepreted as ``Variable $My\_OS$ can assume any value supported by $\mathbb{P} OS$''.
+                  \item Is $\mathbb{P} OS$ a legitimate type? Explain.\\
+                        \noindent Yes, it denotes the type of the elements.
+                  \item What is the result of the following statement signify?  $My\_OS : OS.$ Is the statement acceptable? Explain.\\
+                        \noindent No, because My\_OS is a set, it cannot assume any value supported by Car.
+                  \item Is $ MacOS \in \mathbb{P} OS$ ? Explain.\\
+                        \noindent No. MacOs is an atomic variable while it is not a set therefore it cannot be of $\mathbb{P} OS$.
+                  \item Is OS a legitimate type?\\
+                        \noindent Yes.
+                  \item Is $ \{\} \in \mathbb{P} OS$ ? Explain.\\
+                        \noindent Yes, the empty set is a subset of any set.
+                  \item Is $ \{Linux, BSD\} \in \mathbb{P} OS$ ? Explain.\\
+                        \noindent Yes. Variable \{Linux, BSD\} is a set. It is a legitimate element of $\mathbb{P} OS$.
+                  \item $ \{\{\}\} \in \mathbb{P} OS$ ? Explain.\\
+                        \noindent No, the set containing the empty set is not a subset of $\mathbb{P} OS$
+                  \item Is $ \{\} \in OS$ ? Explain.\\
+                        \noindent Yes, the empty set is a subset of any set.
+                  \item If we define variable $My\_Computer : \mathbb{P} OS$, is \{\} a legitimate value for variable $My\_Computer$? Explain.\\
+                        \noindent Yes. The empty set is a subset of any set.
+                  \item If we define variable $My\_Computer : \{Windows\}$, would the statement make $My\_Computer$ an atomic variable?\\
+                        \noindent Yes.
+                  \item Is $\{\{BSD, MacOS\}\} \subset \mathbb{P} OS$ Explain.\\
+                        \noindent Yes. The set containing \{BSD, MacOS\} is the subset of the powerset of OS.
+                  \item Is $My\_OS \subset \mathbb{P} OS$ Explain.\\
+                        \noindent No. $\mathbb{P} OS$ is a set of sets while My\_OS does not contain any sets.
+                  \item Is $\{\{BSD, MacOS\}\} \in \mathbb{P} OS$ Explain.\\
+                        \noindent No. $\mathbb{P} OS$ does not contain sets that contain another set.
             \end{enumerate}
             \newpage
-            \begin{enumerate}
 
-                  \item How do we interpret the expression $Favorite : \mathbb{P} Phone$?
 
-                  \item Is $\mathbb{P} Phone$ a legitimate type?
 
-                  \item What is the nature of the variable in $Favorite : \mathbb{P} Phone$? (i.e. atomic or composite?)
+\end{itemize}
+\section{Relational Calculus 2}
 
-                  \item Is $Apple \in \mathbb{P} Phone$?
-
-                  \item Is $\{ Apple \} \in \mathbb{P} Phone$?
-
-                  \item Is $\{ \{ \} \} \in \mathbb{P} Phone$?
-
-                  \item Is $\{ \} \in \mathbb{P} Phone$?
-
-                  \item If we define variable $Favorite : \mathbb{P} Phone$, is $\{ \}$ a legitimate value for variable $Favorite$?
-
-                  \item Is $Favorite \in \mathbb{P} Phone$?
-
-                  \item Is $Favorite \subset \mathbb{P} Phone$?
-
-            \end{enumerate}
-
-            \noindent \underline{Solution}:
-
-            \begin{enumerate}
-
-                  \item How do we interpret the expression $Favorite : \mathbb{P} Phone$? \underline{Answer}: This is  interpreted as ``The variable $Favorite$ can assume any value supported by the powerset of $Phone$.
-
-                  \item Is $\mathbb{P} Phone$ a legitimate type? \textbf{Yes.}
-
-                  \item What is the nature of the variable in $Favorite : \mathbb{P} Phone$? \underline{Answer}: Variable $Favorite$ is a \textbf{set}.
-
-                  \item Is $Apple \in \mathbb{P} Phone$? \textbf{No}.
-
-                  \item Is $\{ Apple \} \in \mathbb{P} Phone$?  \textbf{Yes}.
-
-                  \item Is $\{ \{ \} \} \in \mathbb{P} Phone$? \textbf{No}.
-
-                  \item Is $\{ \} \in \mathbb{P} Phone$? \textbf{Yes}.
-
-                  \item If we define variable $favorite : \mathbb{P} Phone$, is $\{ \}$ a legitimate value for variable $Favorite$? \textbf{Yes}.
-
-                  \item Is $Favorite \in \mathbb{P} Phone$? \textbf{Yes}.
-
-                  \item Is $Favorite \subset \mathbb{P} Phone$? \textbf{No}.
-
-            \end{enumerate}
-
-      \item Consider the following relation:
-
-            \[ laptops : Model \leftrightarrow Brand \]
+\noindent \text{Consider the following binary relation:}
+\begin{itemize}
+      \item[]
+            \( airplanes : Model \leftrightarrow Manufacturer \)
 
             \noindent where
 
             \[
                   laptops = \\
                   \hspace{5mm} \{ \\
-                  \hspace{10mm} legion5 \mapsto lenovo,\\
-                  \hspace{10mm} macbookair \mapsto apple,\\
-                  \hspace{10mm} xps15 \mapsto dell,\\
-                  \hspace{10mm} spectre \mapsto hp,\\
-                  \hspace{10mm} xps13 \mapsto dell,\\
-                  \hspace{10mm} swift3 \mapsto acer,\\
-                  \hspace{10mm} macbookpro \mapsto apple,\\
-                  \hspace{10mm} dragonfly \mapsto hp,\\
-                  \hspace{10mm} envyx360 \mapsto hp\\
+                  \hspace{10mm} A320 \mapsto Airbus,\\
+                  \hspace{10mm} A330 \mapsto Airbus,\\
+                  \hspace{10mm} A350 \mapsto Airbus,\\
+                  \hspace{10mm} A380 \mapsto Airbus,\\
+                  \hspace{10mm} 737 \mapsto Boeing,\\
+                  \hspace{10mm} 747 \mapsto Boeing,\\
+                  \hspace{10mm} Superjet100 \mapsto Sukhoi,\\
+                  \hspace{10mm} C919 \mapsto Comac,\\
+                  \hspace{10mm} Global7500 \mapsto Bombardier\\
+                  \hspace{10mm} Global8000 \mapsto Bombardier\\
+                  \hspace{10mm} E170 \mapsto Embraer\\
+                  \hspace{10mm} E175 \mapsto Embraer\\
                   \hspace{5mm} \}
             \]
 
             \begin{enumerate}
 
-                  \item What is the domain and the range of the relation?
-
+                  \item What is the value of the following expression?\[ \{ A330, 747 \}  \lhd airplanes \]
                         \noindent \underline{Answer}:
 
-                        \begin{itemize}
-                              \item The domain is defined as:  % \textbf{\underline{Marking:  0.5 pt}}
-                                    \[
-                                          \dom laptops = \\
-                                          \hspace{5mm} \{ \\
-                                          \hspace{10mm} legion5,\\
-                                          \hspace{10mm} macbookair,\\
-                                          \hspace{10mm} xps15,\\
-                                          \hspace{10mm} spectre,\\
-                                          \hspace{10mm} xps13,\\
-                                          \hspace{10mm} swift3,\\
-                                          \hspace{10mm} macbookpro,\\
-                                          \hspace{10mm} dragonfly,\\
-                                          \hspace{10mm} envyx360\\
-                                          \hspace{5mm} \}
-                                    \]
-
-
-                              \item The range is defined as:  $\ran~laptops = \{ lenovo, apple, dell, hp, acer \}$.
-
-
-                        \end{itemize}
-
-
-                  \item What is the result of the expression
-
-                        \[ \{ xps15, xps13, swift3, envyx360 \}  \lhd laptops \]
-
-                        \noindent What is the meaning of operator $\lhd$ and where would you deploy such operator in the context of a database management system?
-
-                        \newpage
-
+                  \item What is the result of the expression? \[ airplanes \rhd \{ Comac, Embraer \} \]
                         \noindent \underline{Answer}:
 
-                        \noindent The result is
-
-                        \[ \{ xps15, xps13, swift3, envyx360 \}  \lhd laptops = \\
-                              \hspace{5mm} \{ \\
-                              \hspace{10mm} xps15 \mapsto dell,\\
-                              \hspace{10mm} xps13 \mapsto dell,\\
-                              \hspace{10mm} swift3 \mapsto acer,\\
-                              \hspace{10mm} envyx360 \mapsto hp\\
-                              \hspace{5mm} \}
-                        \]
-
-                        \noindent Domain restriction selects pairs based on their first element. We deploy such operators to model database queries.
-
-
-                  \item What is the result of the expression
-
-                        \[ laptops \rhd \{ lenovo, hp \} \]
-
-                        \noindent What is the meaning of operator $\rhd$ and where would you deploy such operator in the context of a database management system?
-
+                  \item What is the result of the expression? \[\{ A320, A330, A350, E170 \} \ndres airplanes\]
                         \noindent \underline{Answer}:
-
-                        \noindent The result is
-
-
-                        \[ laptops \rhd \{ lenovo, hp \} = \\
-                              \hspace{5mm} \{ \\
-                              \hspace{10mm} legion5 \mapsto lenovo,\\
-                              \hspace{10mm} spectre \mapsto hp,\\
-                              \hspace{10mm} dragonfly \mapsto hp,\\
-                              \hspace{10mm} envyx360 \mapsto hp\\
-                              \hspace{5mm} \}
-                        \]
-
-                        \noindent Range restriction selects pairs based on their second element. We deploy such operators to model database queries.
-
-
-                  \item What is the result of the expression
-
-                        \[ \{ legion5, xps15, xps13, dragonfly \} \ndres laptops \]
-
-                        \noindent What is the meaning of operator $\ndres$ and where would you deploy such operator in the context of a database management system?
-
+                  \item What is the result of the expression? \[ airplanes \nrres \{ Airbus, Boeing \} \]
                         \noindent \underline{Answer}:
-
-                        \noindent \noindent The result is
-
-                        \[ \{ legion5, xps15, xps13, dragonfly \} \ndres laptops = \\
-                              \hspace{5mm} \{ \\
-                              \hspace{10mm} macbookair \mapsto apple,\\
-                              \hspace{10mm} spectre \mapsto hp,\\
-                              \hspace{10mm} swift3 \mapsto acer,\\
-                              \hspace{10mm} macbookpro \mapsto apple,\\
-                              \hspace{10mm} envyx360 \mapsto hp\\
-                              \hspace{5mm} \}
-                        \]
-
-                        \noindent  Domain subtraction removes elements from the domain of the relation. We deploy such operation to model deletion of records.
-
-
-                  \item What is the result of the expression
-
-                        \[ laptops \nrres \{ apple, dell, hp \} \]
-
-                        \noindent What is the meaning of operator $\nrres$ and where would you deploy such operator in the context of a database management system?
-
-                        \newpage
-
+                  \item Consider the following expression: \[ airplanes \oplus \{ Su\_80 \mapsto Sukhoi \} \]
+                        \noindent Comment on the deployment of the expression in the context of a database table.
                         \noindent \underline{Answer}:
-
-
-                        \noindent \noindent The result is
-
-                        \[
-                              laptops \nrres \{ apple, dell, hp \} = \\
-                              \hspace{5mm} \{ \\
-                              \hspace{10mm} legion5 \mapsto lenovo,\\
-                              \hspace{10mm} swift3 \mapsto acer\\
-                              \hspace{5mm} \}
-                        \]
-
-
-                        \noindent  Range subtraction removes elements from the codomain of the relation. We deploy such operation to model database updates (deletion of records). % \textbf{\underline{Marking:  1.5 pts}}
-
-
-
-                  \item Consider the following expression
-
-                        \[ laptops \oplus \{ ideapad \mapsto lenovo \} \]
-
-
-                        \begin{enumerate}
-                              \item What is the result of the expression?
-
-                              \item What is the meaning of operator $\oplus$ and where would you deploy such operator in the context of a database management system?
-
-                              \item Does the result of the expression have a permanent effect on the database (relation)? If not, describe in detail how would you ensure a permanent effect.
-
-                        \end{enumerate}
-
-                        \newpage
-
-                        \noindent \underline{Answer}:
-
-
-                        \begin{enumerate}
-                              \item  The result is
-
-                                    \[ laptops \oplus \{ ideapad \mapsto lenovo \} = \\
-                                          \hspace{5mm} \{ \\
-                                          \hspace{10mm} ideapad \mapsto lenovo,\\
-                                          \hspace{10mm} legion5 \mapsto lenovo,\\
-                                          \hspace{10mm} macbookair \mapsto apple,\\
-                                          \hspace{10mm} xps15 \mapsto dell,\\
-                                          \hspace{10mm} spectre \mapsto hp,\\
-                                          \hspace{10mm} xps13 \mapsto dell,\\
-                                          \hspace{10mm} swift3 \mapsto acer,\\
-                                          \hspace{10mm} macbookpro \mapsto apple,\\
-                                          \hspace{10mm} dragonfly \mapsto hp,\\
-                                          \hspace{10mm} envyx360 \mapsto hp\\
-                                          \hspace{5mm} \}
-                                    \]
-
-                              \item Relational overriding can model database updates (addition of records).
-
-
-                              \item The expression does not have a permanent effect on the database (relation). To ensure a permanent effect on the relation, we need to define an assignment statement
-
-                                    \[ laptops' = laptops \oplus \{ ideapad \mapsto lenovo \} \]
-
-                                    \noindent which reads ``The value of variable (relation) $laptops$ is assigned the result of the expression on the right-hand-side of the assignment statement.''
-
-                        \end{enumerate}
             \end{enumerate}
-
 \end{itemize}
-
 \end{spacing}
-
 \end{document}

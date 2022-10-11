@@ -1,7 +1,6 @@
 package LinkedLists;
 
-public class MergingTwoLists {
-
+public class MergingTwoSortedLists {
 	public ListNode merge(ListNode list1, ListNode list2) {
 		ListNode curr1 = list1;
 		ListNode curr2 = list2;

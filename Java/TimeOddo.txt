@@ -1,9 +1,5 @@
+Run time:1
 Run time:2
 Run time:2
 Run time:2
-Run time:3
-Run time:4
-Run time:12
-Run time:175
-Run time:3561
-Run time:75241
+Run time:2

@@ -16,11 +16,17 @@ public class RemoveLinkedListElements {
         return headptr.next;
     }
     
+//    public ListNode removeElementsRecursive(ListNode head, int val) {
+//        if  (head == null) {return null;}
+//        ListNode next = removeElementsRecursive(head.next, val);
+//        if  (head.val == val) {return next;}
+//        head.next = next;
+//        return head;
+//    }
+    
     public ListNode removeElementsRecursive(ListNode head, int val) {
         if  (head == null) {return null;}
-        ListNode next = removeElementsRecursive(head.next, val);
-        if  (head.val == val) {return next;}
-        head.next = next;
-        return head;
-    }
+        head.next = removeElementsRecursive(head.next, val);
+        return  head.val == val ? head.next : head;
+    }    
 }

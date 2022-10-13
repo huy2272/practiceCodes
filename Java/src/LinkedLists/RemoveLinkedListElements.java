@@ -25,8 +25,14 @@ public class RemoveLinkedListElements {
 //    }
     
     public ListNode removeElementsRecursive(ListNode head, int val) {
-        if  (head == null) {return null;}
+        //Base case for when we reached the end of the linked list
+    	if  (head == null) {return null;}
+    	//Recursively call this function until we get to the end of the linkedlist
         head.next = removeElementsRecursive(head.next, val);
+        //Now if the current node is == val, we just return head.next
+        //In other words, we are skipping the node that contains int val
+        //If the node is != we return head, which is the node itself
+        //This keeps the node inside the linked list
         return  head.val == val ? head.next : head;
     }    
 }

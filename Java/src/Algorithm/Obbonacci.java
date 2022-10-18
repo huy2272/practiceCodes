@@ -46,21 +46,21 @@ public class Obbonacci {
 			return oddonacciRecursive(n - 1) + oddonacciRecursive(n - 2) + oddonacciRecursive(n - 3);
 	}
 	
-	static long oddoTail(int n, int a, int b, int c) {
+	static long oddoTail(int n, long a, long b, long c) {
 	// This is the base case, when n == 1 we return whatever value parameter a holds
-		if (n == 1)
-			return a;
+		if (n == 1) return a;
 		// Each time we loop through parameter a value will be discarded and parameter a = parameter b, value b = value c
 		// parameter c will be the new oddonacci number which is a + b +c
 		return oddoTail(n - 1, b, c, a + b + c);
 	}
 	
 	public static void main(String[] args) {
-		int n = 20;
+		int n = 5;
 		
 		oddonacciCache = new long[n + 1];
 		
 		long start = System.currentTimeMillis();
+		System.out.println(String.valueOf(oddoTail(38,1,1,1)));
 		try {
 			File obj = new File("OddoOut.txt");
 			// File obj2 = new File("TimeOddo.txt");
@@ -75,20 +75,21 @@ public class Obbonacci {
 			PrintWriter writer = new PrintWriter(fout);
 			FileOutputStream fout2 = new FileOutputStream("TimeOddo.txt");
 			PrintWriter writer2 = new PrintWriter(fout2);
-//			writer.write(String.valueOf(oddoTail(1,1,1,1)));
-//			writer.write(String.valueOf(oddoTail(2,1,1,1)));
-//			writer.write(String.valueOf(oddoTail(3,1,1,1)));
-//			writer.write(String.valueOf(oddoTail(4,1,1,1)));
 //			writer.write(String.valueOf(oddoTail(5,1,1,1)));
-			
-			for (int i = 0; i <= n; i++) {
-				writer.write(String.valueOf(oddonacci(i)));
-				
-//				writer.write(String.valueOf(oddonacciRecursive(i)));
+//			writer.write(String.valueOf(oddoTail(10,1,1,1)));
+//			writer.write(String.valueOf(oddoTail(15,1,1,1)));
+//			writer.write(String.valueOf(oddoTail(20,1,1,1)));
+//			writer.write(String.valueOf(oddoTail(25,1,1,1)));
+//			writer.write(String.valueOf(oddoTail(30,1,1,1)));
+			for (int i = 1; i <= n; i++) {
+//				writer.write(String.valueOf(oddonacci(i)));
+//				writer.write(String.valueOf(oddoTail(i,1,1,1)));
+				writer.write(String.valueOf(oddonacciRecursive(i)));
 				writer.println();
 
 				//Record the time of every 5 oddonacci number
 				if (i % 5 == 0) {
+					
 					long current = System.currentTimeMillis() - start;
 					writer2.write("Run time:");
 					writer2.write(String.valueOf(current));

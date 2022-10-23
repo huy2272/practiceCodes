@@ -1,5 +1,7 @@
 package Arrays;
 
+import HashMap.dayOfTheWeek;
+
 public class SolutionDriver {
 	public static void main(String[] args) {
 		//Testing twoSum

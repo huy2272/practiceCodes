@@ -1,0 +1,190 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{alltt}
+\usepackage{array}	
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{verbatim}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{amssymb,amsmath, amsthm}
+\usepackage{hyperref}
+\usepackage{oz}
+\usepackage[cc]{titlepic}
+\usepackage{fancyvrb}
+
+
+\title{Concordia University\\
+Department of Computer Science and Software Engineering\\
+\textbf{SOEN 331:\\Formal Methods for Software Engineering}\\
+\ \\
+\textbf{Exercise in Z}}
+\author{40125396 Khanh Huy Nguyen, 40178119 Mahanaim Rubin Yo}
+\date{\today}
+
+\begin{spacing}{1.5}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\section*{Flight monitoring system with the Z specification}
+
+Consider a system such as flightradar24.com. A flight is associated with a flight number
+(such as UA79), a specific code that an airline assigns to a particular flight in its network,
+and a route which is a source-destination city pair such as (NY , Tokyo). For example, the
+United Airlines flight from New to Tokyo is tracked by the system as $ UA79 \mapsto (NY , Tokyo) .$
+The formal specification of the system introduces the following three types:
+
+\indent \(FLIGHT\_NUMBER,\)
+\newline \indent \(ROUTE,\)
+\newline \indent \(CITY \)
+
+\noindent where
+\newline \indent $ROUTE: CITY \times CITY$.
+
+\noindent Flight numbers are unique, and there are possibly several flights that cover the same route.
+For example, there are possibly several flights from New York to Tokyo. The system must
+keep track of all active flights. Formally, let us have the following variables:
+
+\noindent Provide a formal specification in Z, with the following operations:
+
+\begin{enumerate}
+	\item \texttt{active}:  holds all active flight numbers.
+	\item \texttt{map}: holds a collection of active flight-route pairs.
+
+\end{enumerate}
+
+\newpage
+
+\noindent \underline{Solution}:
+\begin{enumerate}
+	\item (2 pts) Provide a declaration of variable active.\\
+	      $active~:~\mathbb{P}~FLIGHT\_NUMBER$
+	\item (3 pts) What kind of collection is variable map?\\
+	      \noindent Variable map is a Relation, which is a set of tuples because it holds instances of Cartesian product type ROUTE, and active flight numbers.
+	\item (10 pts) Is variable map a function and if so, comment on whether it is a total or
+	      partial function, as well as on the properties of injectivity, surjectivity and bijectivity.\\
+	      The variable map function is not injective because it is not an one-to-one function.
+	      Therefore, the function is not bijective since bijective requires the function to be also injective.
+	      The function is surjective because while all flight numbers are unique, they can be assigned to different or to the same route.
+	\item (10 pts) Provide a formal specification of the state of the system in terms of a Z specification schema.
+	      \begin{class}{flightradar24.com}
+		      \begin{schema}{ROUTE}
+			      city : CITY\\
+				  city2 : CITY\\
+			      \where
+				  city != city2\\
+				  ROUTE: city \times city2
+		      \end{schema}\\
+		      \begin{schema}{active}
+			      active:~\mathbb{P}~FLIGHT\_NUMBER \\
+			      \where
+			      active \in map\\
+		      \end{schema}\\
+		      \begin{schema}{map}
+				  flight:~\mathbb{P}~FLIGHT\_NUMBER \\
+				  map: FLIGHT\_NUMBER \nrightarrow ROUTE\\
+				  route: ROUTE 
+			      \where
+				  flight \in active\\
+				  flight = dom\ \ map\\
+			      route = ran\ \ map\\
+		      \end{schema}\\
+	      \end{class}
+	      \newpage
+	\item (15 pts) Provide a schema for operation RegisterFlightOK that adds a flight to the
+	      tracker. With the aid of success and error schema(s), provide a definition for operation
+	      RegisterFlight that the system will place in its exposed interface
+
+	      \begin{class}{flightradar24.com}
+		      \indent $Message::= ok $\mid already\_active$ $ \\
+		      \begin{schema}{Sucess}
+			      \Xi RegisterFlight\\
+			      response! : Message
+			      \where
+			      response! = ok
+		      \end{schema} \\
+		      \begin{schema}{AlreadyActive}
+			      \Xi RegisterFlight\\
+			      newFlight?: FLIGHT\_NUMBER \\
+			      response! = Message
+			      \where
+			      newFlight \in active \\
+			      response! = already\_active
+		      \end{schema} \\
+		      \begin{schema}{RegisterFlightOK}
+			      \Delta (map,active)\\
+			      newFlight?: FLIGHT\_NUMBER \\
+			      ROUTE? = ROUTE
+			      \where
+			      newFlight \notin active \\
+			      active' = active \cup \{ newFlight? \} \\
+			      map' = map \cup \{ newFlight? \mapsto ROUTE? \} \\
+		      \end{schema} \\
+		      RegisterFlight ~\hat{=}~ (RegisterFlightOK \wedge Success) \oplus (AlreadyActive)
+	      \end{class}
+	      \newpage
+	\item (15 pts) Provide a schema for operation GetRouteOK that returns the route given its
+	      flight. With the aid of success and error schema(s), provide a definition for operation
+	      GetRoute that the system will place in its exposed interface.
+	      \begin{class}{flightradar24.com}
+		      \indent $Message::= ok $\mid already\_active \mid$ not\_active $ \\
+		      \begin{schema}{Sucess}
+			      \Xi Map\\
+			      response! : Message
+			      \where
+			      response! = ok
+		      \end{schema} \\
+		      \begin{schema}{NotActive}
+			      \Xi Map\\
+			      flight?: FLIGHT\_NUMBER \\
+			      response! = Message
+			      \where
+			      flight \notin active \\
+			      response! = not\_active
+		      \end{schema} \\
+		      \begin{schema}{GetRouteOK}
+			      \Xi Map\\
+			      flight?: FLIGHT\_NUMBER \\
+			      ROUTE! = ROUTE
+			      \where
+			      flight \in active \\
+			      ROUTE! = map(flight?)
+		      \end{schema} \\
+		      GetRoute ~\hat{=}~ (GetRouteOK \wedge Success) \oplus (NotActive)
+	      \end{class}
+	      \newpage
+	\item (20 pts) Provide a schema for operation GetFlightOK that returns any and all active
+	      flights given a route. With the aid of success and error schema(s), provide a definition
+	      for operation GetFlight that the system will place in its exposed interface.
+	      \begin{class}{flightradar24.com}
+		      \indent $Message::= ok $\mid already\_active \mid not\_active$ $ \\
+		      \begin{schema}{Sucess}
+			      \Xi Map\\
+			      response! : Message
+			      \where
+			      response! = ok
+		      \end{schema} \\
+		      \begin{schema}{RouteNotMapped}
+			      \Xi Map\\
+			      ROUTE?: ROUTE \\
+			      flight?: FLIGHT\_NUMBER\\
+			      response! = Message
+			      \where
+			      ROUTE? \notin map(flight?) \\
+			      response! = not\_active
+		      \end{schema} \\
+		      \begin{schema}{GetFlightOK}
+			      \Xi Map\\
+			      ROUTE? = ROUTE\\
+			      active!~:~\mathbb{P}~active \\
+			      \where
+			      active! = map(ROUTE?)
+		      \end{schema} \\
+		      GetFlight ~\hat{=}~ (GetFlightOK \wedge Success) \oplus (RouteNotMapped)
+	      \end{class}
+\end{enumerate}
+\end{spacing}
+\end{document}

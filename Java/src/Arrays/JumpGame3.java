@@ -1,6 +1,12 @@
 package Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Scanner;
 import java.util.Stack;
-public class StrikeEdgeZero {
+public class JumpGame3 {
     static int solRecursive(int[] arr, int start) {
         if(start<0 || start>=arr.length || arr[start]<0) {return 0;}
         if(arr[start]==0) {return 1;}
@@ -35,15 +41,33 @@ public class StrikeEdgeZero {
         return 0;		
 	}
 	public static void main(String[] args) {
-		
-		int[] arr = {4,8,5,2,3,5,1,6,4,0};
-		int[] arr2 = {5,8,2,3,1,5,0};
-		int[] arr3 = {1,1,1,1,1,1,0};
-		System.out.println("Result for recursive function: " + solRecursive(arr, 0));
-		System.out.println("Result for recursive function: " + solRecursive(arr2, 0));
-		System.out.println("Result for recursive function: " + solRecursive(arr3, 0));
-		System.out.println("Result for stack function: " + solStack(arr, 0));
-		System.out.println("Result for stack function: " + solStack(arr2, 0));
-		System.out.println("Result for stack function: " + solStack(arr3, 0));
+		File file = new File("in.txt");
+		Scanner sc;
+		FileOutputStream fout;		
+		try {
+			sc = new Scanner(file);
+			sc.nextLine();
+			while (sc.hasNextLine()) {
+				String s=sc.nextLine();
+				String[] strArr = s.split(" ");
+				int size = Integer.parseInt(strArr[0]);
+				int start = Integer.parseInt(strArr[1]);
+				int[] intArr = new int[size];
+				for	(int i = 0; i < strArr.length-2; i++) {
+					intArr[i] = Integer.parseInt(strArr[i+2]);
+				}
+				System.out.println(Arrays.toString(intArr));
+				fout = new FileOutputStream("Out.txt", true);
+				PrintWriter writer = new PrintWriter(fout);
+				writer.write(String.valueOf(solRecursive(intArr, start))+"\n");
+				writer.write(String.valueOf(solStack(intArr, start))+"\n");
+				writer.flush();
+			}
+		} catch (FileNotFoundException e) {
+			System.out.print("Error while reading or writing to file");
+			e.printStackTrace();
+		}
 	}
 }
+
+

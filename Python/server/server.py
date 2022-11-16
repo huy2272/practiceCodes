@@ -1,7 +1,8 @@
 import socket
 
 #If local host doesn't work use 127.0.0.1
-HOST, PORT = "127.0.0.1", 65432
+HOST = "127.0.0.1" 
+PORT = 65432
 
 #AF_INET is the Internet family for IPv4
 #SOCK_STREAM is the sokcet type for TCP, protocol that is used to transport messages

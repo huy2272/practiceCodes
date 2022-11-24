@@ -62,7 +62,6 @@ class FileHandler:
         data = '|'.join([name] + self.database[name])
         
         return {
-            'statusCode': 201,
             'data': data
         }
 

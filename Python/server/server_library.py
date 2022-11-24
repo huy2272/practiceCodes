@@ -6,7 +6,6 @@ import json
 
 
 class ServerLib:
-
     def __init__(self): 
         # TODO: change verbose to false
         self.fileHandler = FileHandler()

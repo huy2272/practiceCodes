@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 import json
 
 class HTTPLibrary:
-    def sendHTTPRequest(self, HOST, HTTP_METHOD, PATH = "/", HEADERS = [], DATA = None, OUTPUT_FILE = None):
+    def HTTPRequest(self, HOST, HTTP_METHOD, PATH = "/", HEADERS = [], DATA = None, OUTPUT_FILE = None):
             if PATH == "":
                 PATH = "/"
             
@@ -18,15 +18,15 @@ class HTTPLibrary:
                 
                 s.connect((HOST, PORT))
 
-                request = self.__prepareRequest(HOST, HTTP_METHOD, PATH, HEADERS, DATA)    
+                request = self.RequestFormat(HOST, HTTP_METHOD, PATH, HEADERS, DATA)    
                 s.sendall(request)
-                responseHeader, responseBody = self.__receiveResponse(s)
+                responseHeader, responseBody = self.ResponseFormat(s)
 
                 # Print server response
                 print("Response: ")
                 print(responseBody)
 
-    def __prepareRequest(self, HOST, HTTP_METHOD, PATH, HEADERS, BODY_DATA):
+    def RequestFormat(self, HOST, HTTP_METHOD, PATH, HEADERS, DATA):
         request = ''
         
         request += HTTP_METHOD + " " + PATH + " HTTP/1.1\r\n"
@@ -35,16 +35,16 @@ class HTTPLibrary:
         for HEADER in HEADERS:
             request += HEADER + "\r\n"
 
-        if BODY_DATA is not None:
-            BODY_DATA = json.dumps(BODY_DATA)
-            request += "Content-Length: " + str(len(BODY_DATA)) + "\r\n"
+        if DATA is not None:
+            DATA = json.dumps(DATA)
+            request += "Content-Length: " + str(len(DATA)) + "\r\n"
             request += "\r\n"
-            request += BODY_DATA + "\r\n"
+            request += DATA + "\r\n"
 
         request += "\r\n"
         return request.encode()
 
-    def __receiveResponse(self, socket):
+    def ResponseFormat(self, socket):
         BUFFER_SIZE = 1024
         response = b''
 

@@ -2,7 +2,7 @@ import socket
 from urllib.parse import urlparse
 import json
 
-class HTTPLibrary:
+class Library:
     def HTTPRequest(self, HOST, HTTP_METHOD, PATH = "/", HEADERS = [], DATA = None, OUTPUT_FILE = None):
             if PATH == "":
                 PATH = "/"

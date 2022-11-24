@@ -1,9 +1,9 @@
 from urllib.parse import urlparse
-from library import HTTPLibrary
+from library import Library
 from enum import Enum
 
 # Lists of supported methods
-class HTTPMethod(Enum):
+class Methods(Enum):
     GET = 'GET'
     POST = 'POST'
     PATCH = 'PATCH'
@@ -11,7 +11,7 @@ class HTTPMethod(Enum):
 
 class CustomerApp:
     def __init__(self):
-        self.http = HTTPLibrary()
+        self.http = Library()
         self.default_url = 'http://localhost:65432'
         self.hostname = ''
         self.full_path = ''
@@ -51,7 +51,7 @@ class CustomerApp:
             print()
             url = self.default_url + '/' + name
             self.URLValidator(url)
-            self.http.HTTPRequest(self.hostname,HTTPMethod.GET.name,self.full_path)
+            self.http.HTTPRequest(self.hostname,Methods.GET.name,self.full_path)
             self.reset()
         elif val == 2:
             # Name
@@ -72,14 +72,14 @@ class CustomerApp:
             }
             url = self.default_url + '/' + name
             self.URLValidator(url)
-            self.http.HTTPRequest(self.hostname, HTTPMethod.POST.name, self.full_path, DATA=data)
+            self.http.HTTPRequest(self.hostname, Methods.POST.name, self.full_path, DATA=data)
             self.reset()
         elif val == 3:
             # Delete customer
             name = self.name()
             url = self.default_url + '/' + name
             self.URLValidator(url)
-            self.http.HTTPRequest(self.hostname, HTTPMethod.DELETE.name, self.full_path)    
+            self.http.HTTPRequest(self.hostname, Methods.DELETE.name, self.full_path)    
             self.reset()
         elif val == 4:
             # Update customer age
@@ -88,7 +88,7 @@ class CustomerApp:
             data = { 'age': age }
             url = self.default_url + '/' + name
             self.URLValidator(url)
-            self.http.HTTPRequest(self.hostname, HTTPMethod.PATCH.name, self.full_path, DATA = data)
+            self.http.HTTPRequest(self.hostname, Methods.PATCH.name, self.full_path, DATA = data)
             self.reset()
         elif val == 5:
             # Update customer address
@@ -97,7 +97,7 @@ class CustomerApp:
             data = { 'address': address.strip() }
             url = self.default_url + '/' + name
             self.URLValidator(url)
-            self.http.HTTPRequest(self.hostname, HTTPMethod.PATCH.name, self.full_path, DATA = data)
+            self.http.HTTPRequest(self.hostname, Methods.PATCH.name, self.full_path, DATA = data)
             self.reset()
             self.reset()
         elif val == 6:
@@ -107,14 +107,14 @@ class CustomerApp:
             data = { 'number': number }
             url = self.default_url + '/' + name
             self.URLValidator(url)
-            self.http.HTTPRequest(self.hostname, HTTPMethod.PATCH.name, self.full_path, DATA = data)
+            self.http.HTTPRequest(self.hostname, Methods.PATCH.name, self.full_path, DATA = data)
             self.reset()
             self.reset()
             self.reset()
         elif val == 7:
             url = self.default_url + '/'
             self.URLValidator(url)
-            self.http.HTTPRequest(self.hostname, HTTPMethod.GET.name, self.full_path)
+            self.http.HTTPRequest(self.hostname, Methods.GET.name, self.full_path)
             self.reset()
         elif val == 8:
             return False
@@ -139,7 +139,7 @@ class CustomerApp:
         return age.strip()
     
     def phoneNumber(self):
-        # Number (optional)
+        # phone number can be empty
         number = ''
         while True:
             number = input("Please enter the customer's number: ")
@@ -161,7 +161,6 @@ class CustomerApp:
     def URLValidator(self, url):
         result = urlparse(url)
         if all([result.scheme, result.netloc, result.hostname]):
-            # Set the hostname and full url path
             self.hostname = result.netloc
             self.full_path = result.path
             if result.params: self.full_path += f';{result.params}'

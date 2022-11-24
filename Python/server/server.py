@@ -1,4 +1,4 @@
-from server_library import ServerLib
+from serverLib import ServerLib
 
 def main():
     print("\nServer's information\n")

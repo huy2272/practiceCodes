@@ -136,7 +136,6 @@ class CustomerApp:
             age = input("Please enter customer's age: ")
             if age.isnumeric() or age == '': break
             print("Please only enter numbers for customer's age")
-
         return age.strip()
     
     def phoneNumber(self):
@@ -146,7 +145,6 @@ class CustomerApp:
             number = input("Please enter the customer's number: ")
             if self.numberValidator(number): break
             print("Please only enter numbers for customer's numbers")
-
         return number.strip()
     
     def numberValidator(self, nb):
@@ -160,7 +158,6 @@ class CustomerApp:
             return True
         return False
 
-    # Validates URL in simple manner (checks if has http:// or https:// + a hostname)
     def URLValidator(self, url):
         result = urlparse(url)
         if all([result.scheme, result.netloc, result.hostname]):

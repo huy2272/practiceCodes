@@ -7,7 +7,6 @@ class HTTPLibrary:
             if PATH == "":
                 PATH = "/"
             
-            '''Contains PORT number'''
             if HOST.count(":") == 1:
                 HOST, PORT = HOST.split(":")
                 PORT = int(PORT)
@@ -15,9 +14,7 @@ class HTTPLibrary:
                 PORT = 80
 
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                
                 s.connect((HOST, PORT))
-
                 request = self.RequestFormat(HOST, HTTP_METHOD, PATH, HEADERS, DATA)    
                 s.sendall(request)
                 responseHeader, responseBody = self.ResponseFormat(s)

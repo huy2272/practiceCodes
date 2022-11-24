@@ -3,7 +3,6 @@ from Modules.FileLock import FileLock
 
 class DataHandler:
     def __init__(self):
-        # when in debug mode, use 'server/data.txt' instead
         self.default = 'data.txt'
         '''
         {Name : [Age, Address, Number]}
@@ -99,8 +98,6 @@ class DataHandler:
                 'data': f'{name} does not exists in database'
             }
         
-        
-
         curr_customer = self.database[name]
         if 'name' in customer:
             del self.database[name]
@@ -123,9 +120,8 @@ class DataHandler:
             if name: filecontent.append([name] + value)
         filecontent.sort()
         filecontent = '\n'.join('|'.join(customer) for customer in filecontent)
-        
 
-        # Locking the file to perform the write operation
+        # Locking the file while writing
         with FileLock(filename):
             try:
                 f = open(filename, "w")

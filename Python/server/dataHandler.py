@@ -1,85 +1,78 @@
-import os
-import shutil
 import mimetypes
 from pathlib import Path
 from Modules.FileLock import FileLock
 
-class dataHandler:
+class FileHandler:
+
     def __init__(self):
-        self.default = 'data.txt'
+        # when in debug mode, use 'server/data.txt' instead
+        self.defaultDirectory = 'data.txt'
+        '''
+        {Name : [Age, Address, Number]}
+        '''
         self.database = {}
         self.count = 0
-        self.read()
-       
-    def read(self):
-        path = self.default
-        if not Path(path).is_file():
-            raise Exception('The file "data.txt" does not exist!')
+        self.readDB()
+
+    def readDB(self):
+        file_path = self.defaultDirectory
+        if not Path(file_path).exists() or not Path(file_path).is_file():
+            raise Exception('Cannot read from database. Incorrect path or "data.txt" does not exist.')
         
         self.count = 0
-
-        with open(path) as file:
+        with open(file_path) as f:
             while True:
-                line = file.readline()
+                line = f.readline()
                 if not line:
                     break
-
+                
                 self.count += 1
                 customer = line.split('|')
                 name, age, address, number = customer
-                #Skip record if the name is missing
-                if all(i == '' or i.isspace() for i in name):
-                    continue
-                #If there's no number
-                if number == '\n':
-                    number = ''
+                if all(i == '' or i.isspace() for i in name): continue
+                if number == '\n': number = ''
                 self.database[name.strip()] = [age.strip(), address.strip(), number.strip()]
-    
-    def print(self):
-        path = self.default
+        
+
+    def printDB(self):
+        file_path = self.defaultDirectory
         try:
-            self.save()
-            if not Path(path).is_file():
-                return{
-                    'data': 'Cannot find database'
+            self.save_database()
+            if not Path(file_path).exists() or not Path(file_path).is_file():
+                return {
+                    'data': 'Database does not exist.'
                 }
-            with open(path) as file:
-                data = file.read()
+                
+            with open(file_path) as f: 
+                file_data = f.read()
+
             
+            CONTENT_TYPE = 'Content-Type: ' + mimetypes.guess_type(file_path)[0] 
+            CONTENT_DISPOSITION = 'Content-Disposition: attachment; filename="' + self.defaultDirectory + '"'
+
+            return {
+                'data': file_data,
+                'headers': [CONTENT_TYPE, CONTENT_DISPOSITION]
+            }
         except Exception as e:
-            return {'data': f'Error getting content: {e}'}
-    
-    def save(self):
-        path = self.default
+            return {
+                'data': f'Error getting file content: {e}'
+            }
 
-        content = []
-        for name, value in self.database.items():
-            if name: content.append([name] + value)
-        content.sort()
-        content = '\n'.join('|'.join(customer) for customer in content)
-
-        with FileLock(path):
-            try:
-                f = open(path, 'w')
-                f.write(content)
-                f.close()
-                return {'data' : 'Writing successful'}
-
-            except Exception as e:
-                return {'data': f'Error while writing to file: {e}'}
-
-    def findCustomer(self, name):
+    def find(self, name):
         if name not in self.database:
             return {
                 'data': f'Customer not found: {name}'
             }
         
         data = '|'.join([name] + self.database[name])
+        
         return {
+            'statusCode': 201,
             'data': data
         }
 
-    def addCustomer(self, name, customer):
+    def add(self, name, customer):
         customer_name, age, address, number = customer.values()
         if name in self.database:
             return {
@@ -88,29 +81,33 @@ class dataHandler:
         
         self.count += 1
         self.database[name] = [str(age),address,number]
-        self.save()
+        
+        self.save_database()
         return {
                 'data': f'Customer added: {name}'
             }
     
-    def deleteCustomer(self, name):
+    def delete(self, name):
         if name not in self.database:
             return {
                 'data': f'Customer does not exists: {name}'
             }
         
         self.count -= 1
+
         del self.database[name]
         self.save_database()
         return {
             'data': f'Customer deleted: {name}'
         }
     
-    def updateCustomer(self, name, customer):
+    def update(self, name, customer):
         if name not in self.database:
             return {
                 'data': f'Customer does not exists: {name}'
             }
+        
+        
 
         curr_customer = self.database[name]
         if 'name' in customer:
@@ -121,7 +118,31 @@ class dataHandler:
         if 'number' in customer: curr_customer[2] = customer['number']
         self.database[name] = curr_customer
 
-        self.save()
+        self.save_database()
         return {
                 'data': f'Customer updated: {name}'
             }
+
+    def save_database(self):
+        filename = self.defaultDirectory
+
+        filecontent = []
+        for name,value in self.database.items():
+            if name: filecontent.append([name] + value)
+        filecontent.sort()
+        filecontent = '\n'.join('|'.join(customer) for customer in filecontent)
+        
+
+        # Locking the file to perform the write operation
+        with FileLock(filename):
+            try:
+                f = open(filename, "w")
+                f.write(filecontent)
+                f.close()
+                return {
+                    'data': 'Successfully wrote file content.',
+                }
+            except Exception as e:
+                return {
+                    'data': f'Error getting file content: {e}'
+                }

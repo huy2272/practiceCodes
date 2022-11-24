@@ -1,74 +1,89 @@
 import socket
-import json
 from http.client import responses
+from dataHandler import FileHandler
 from threading import Thread
-from dataHandler import dataHandler
+import json
+
 
 class ServerLib:
-    def __init__(self):
-        self.dataHandler = dataHandler()
 
-    def startServer(self, PORT = 65432, DIRECTORY = "data.txt"):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
-            server.bind(('localhost',PORT))
-            server.listen()
-            
-            while True:
-                conn, addr = server.accept()
+    def __init__(self): 
+        # TODO: change verbose to false
+        self.fileHandler = FileHandler()
+
+    def startServer(self, PORT=9999, DIRECTORY = "data.txt"):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+
+            server_socket.bind(('localhost', PORT))
+            server_socket.listen()
+
+            while True:    
+                conn, addr = server_socket.accept()
                 thread = Thread(target = self.clientHandler, args = (conn, addr))
                 thread.start()
 
-    def requestHandler(self, reqHeader, reqBod):
-        HEADERS = reqHeader.split('\r\n')
-        HTTP_INFORMATION = HEADERS[0].split(' ')
-
-        METHOD = HTTP_INFORMATION[0].strip()
-        PATH = HTTP_INFORMATION[1].strip()
-        custName = PATH.replace('%20', ' ')
-        custName = custName.replace('/', ' ')
-
-        if METHOD not in ['GET', 'POST', 'DELETE', 'PATCH']:
-            return {
-                'data':  METHOD + ' is not supported!' 
-            }
-        
-        if METHOD == 'GET':
-            if PATH == '/':
-                return self.dataHandler.print()
-            else:
-                return self.dataHandler.findCustomer(custName)
-        elif METHOD == 'POST':
-            return self.dataHandler.addCustomer(custName, reqBod)
-        elif METHOD == 'DELETE':
-            return self.dataHandler.deleteCustomer(custName)
-        elif METHOD == 'PATCH':
-            return self.dataHandler.updateCustomer(custName, reqBod)
-
     def clientHandler(self, conn, addr):
-        reqHeader, reqBod = self.listener(conn)
-        if reqBod: reqBod = json.loads(reqBod)
-        filehandlerResponse = self.requestHandler(reqHeader, reqBod)
-        resp = self.respHandler(filehandlerResponse)
 
-        conn.sendall(resp)
-        conn.close()
+        reqHead, reqBod = self.listener(conn)
+
+        if reqBod: reqBod = json.loads(reqBod)
+        filehandlerResponse = self.requestHandler(reqHead, reqBod)
+        response = self.respHandler(filehandlerResponse)
         
+        conn.sendall(response)
+        conn.close()
+
     def listener(self, socket):
         BUFFER_SIZE = 1024
         response = b''
 
+        
         while True:
             packet = socket.recv(BUFFER_SIZE)
             response += packet
-            # Last packet might not fill up the buffer
-            if len(packet) < BUFFER_SIZE: break
+            # Last packet
+            if len(packet) < BUFFER_SIZE: break  
         
         response = response.decode('utf-8')
+
+        '''If responseBody does not exists'''
         if response.count('\r\n\r\n') < 1:
             return response, ""
+        
         else:
-            respHeader, respBod = response.split('\r\n\r\n', 1)
-            return respHeader, respBod
+            respHead, respBod = response.split('\r\n\r\n', 1)
+            return respHead, respBod
+
+    def requestHandler(self, reqHead, reqBod):
+
+        HEADERS = reqHead.split('\r\n')
+        METHOD_INFO = HEADERS[0].split(' ')
+
+        METHOD = METHOD_INFO[0].strip()
+        PATH = METHOD_INFO[1].strip()
+        name = PATH.replace('%20', ' ')
+        name = name.replace('/', '')
+
+        if METHOD not in ['GET', 'POST', 'PATCH', 'DELETE']:
+            return {
+                'data': 'HTTP Method not supported: ' + METHOD
+            }
+        # Print all customers
+        if METHOD == 'GET':
+            if PATH == '/':
+                return self.fileHandler.printDB()
+            else:
+                
+                return self.fileHandler.find(name)
+        # Add a customer
+        elif METHOD == 'POST':
+            return self.fileHandler.add(name, reqBod)
+        # Delete a customer
+        elif METHOD == 'DELETE':
+            return self.fileHandler.delete(name)
+        # Update a customer
+        elif METHOD == 'PATCH':
+            return self.fileHandler.update(name, reqBod)
 
     def respHandler(self, RESPONSE):
         HEADERS = RESPONSE.get('headers', [])
@@ -76,7 +91,7 @@ class ServerLib:
 
         request = ''
         request += 'HTTP/1.0 '
-
+        
         for HEADER in HEADERS:
             request += '\r\n' + HEADER
 

@@ -22,38 +22,6 @@ class ServerLib:
                 thread = Thread(target = self.clientHandler, args = (conn, addr))
                 thread.start()
 
-    def clientHandler(self, conn, addr):
-
-        reqHead, reqBod = self.listener(conn)
-
-        if reqBod: reqBod = json.loads(reqBod)
-        filehandlerResponse = self.requestHandler(reqHead, reqBod)
-        response = self.respHandler(filehandlerResponse)
-        
-        conn.sendall(response)
-        conn.close()
-
-    def listener(self, socket):
-        BUFFER_SIZE = 1024
-        response = b''
-
-        
-        while True:
-            packet = socket.recv(BUFFER_SIZE)
-            response += packet
-            # Last packet
-            if len(packet) < BUFFER_SIZE: break  
-        
-        response = response.decode('utf-8')
-
-        '''If responseBody does not exists'''
-        if response.count('\r\n\r\n') < 1:
-            return response, ""
-        
-        else:
-            respHead, respBod = response.split('\r\n\r\n', 1)
-            return respHead, respBod
-
     def requestHandler(self, reqHead, reqBod):
 
         HEADERS = reqHead.split('\r\n')
@@ -84,6 +52,37 @@ class ServerLib:
         # Update a customer
         elif METHOD == 'PATCH':
             return self.fileHandler.update(name, reqBod)
+
+    def clientHandler(self, conn, addr):
+
+        reqHead, reqBod = self.listener(conn)
+
+        if reqBod: reqBod = json.loads(reqBod)
+        filehandlerResponse = self.requestHandler(reqHead, reqBod)
+        response = self.respHandler(filehandlerResponse)
+        
+        conn.sendall(response)
+        conn.close()
+
+    def listener(self, socket):
+        BUFFER_SIZE = 1024
+        response = b''
+
+        while True:
+            packet = socket.recv(BUFFER_SIZE)
+            response += packet
+            # Last packet
+            if len(packet) < BUFFER_SIZE: break  
+        
+        response = response.decode('utf-8')
+
+        '''If responseBody does not exists'''
+        if response.count('\r\n\r\n') < 1:
+            return response, ""
+        
+        else:
+            respHead, respBod = response.split('\r\n\r\n', 1)
+            return respHead, respBod
 
     def respHandler(self, RESPONSE):
         HEADERS = RESPONSE.get('headers', [])

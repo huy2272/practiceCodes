@@ -1,4 +1,3 @@
-import mimetypes
 from pathlib import Path
 from Modules.FileLock import FileLock
 
@@ -6,7 +5,7 @@ class FileHandler:
 
     def __init__(self):
         # when in debug mode, use 'server/data.txt' instead
-        self.defaultDirectory = 'data.txt'
+        self.default = 'data.txt'
         '''
         {Name : [Age, Address, Number]}
         '''
@@ -15,9 +14,9 @@ class FileHandler:
         self.readDB()
 
     def readDB(self):
-        file_path = self.defaultDirectory
-        if not Path(file_path).exists() or not Path(file_path).is_file():
-            raise Exception('Cannot read from database. Incorrect path or "data.txt" does not exist.')
+        file_path = self.default
+        if not Path(file_path).is_file():
+            raise Exception('"data.txt" cannot be found')
         
         self.count = 0
         with open(file_path) as f:
@@ -35,24 +34,19 @@ class FileHandler:
         
 
     def printDB(self):
-        file_path = self.defaultDirectory
+        path = self.default
         try:
             self.save_database()
-            if not Path(file_path).exists() or not Path(file_path).is_file():
+            if not Path(path).is_file():
                 return {
-                    'data': 'Database does not exist.'
+                    'data': 'The database cannot be found'
                 }
                 
-            with open(file_path) as f: 
+            with open(path) as f: 
                 file_data = f.read()
-
-            
-            CONTENT_TYPE = 'Content-Type: ' + mimetypes.guess_type(file_path)[0] 
-            CONTENT_DISPOSITION = 'Content-Disposition: attachment; filename="' + self.defaultDirectory + '"'
 
             return {
                 'data': file_data,
-                'headers': [CONTENT_TYPE, CONTENT_DISPOSITION]
             }
         except Exception as e:
             return {
@@ -124,7 +118,7 @@ class FileHandler:
             }
 
     def save_database(self):
-        filename = self.defaultDirectory
+        filename = self.default
 
         filecontent = []
         for name,value in self.database.items():

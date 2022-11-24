@@ -1,19 +1,14 @@
-import socket
+from server_library import ServerLib
 
-#If local host doesn't work use 127.0.0.1
-HOST = "127.0.0.1" 
-PORT = 65432
+def main():
+    print("\n=====[Server]=====\n")
 
-#AF_INET is the Internet family for IPv4
-#SOCK_STREAM is the sokcet type for TCP, protocol that is used to transport messages
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST,PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print(f"Connected by {addr}")
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            conn.sendall(data)
+    http = ServerLib()
+    port = 65432
+    directory = 'data.txt'
+
+    print("Starting server on port: ", port)
+    http.startServer(port, directory)
+
+if __name__ == "__main__":
+    main()

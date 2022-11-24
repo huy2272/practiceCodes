@@ -21,20 +21,20 @@ class CustomerApp:
 
     def show_menu(self):
         print("Python DB Menu:\n")
-        print("  1. Find customer")
-        print("  2. Add customer")
-        print("  3. Delete customer")
-        print("  4. Update customer age")
-        print("  5. Update customer address")
-        print("  6. Update customer phone")
-        print("  7. Print report")
-        print("  8. Exit")
+        print("1. Find customer")
+        print("2. Add customer")
+        print("3. Delete customer")
+        print("4. Update customer age")
+        print("5. Update customer address")
+        print("6. Update customer phone")
+        print("7. Print report")
+        print("8. Exit")
         print()
 
-        val = input("Enter a menu number: ")
+        val = input("Select: ")
         while not val.isnumeric() or (val.isnumeric() and (int(val) < 1 or int(val) > 8)):
             print(" Please make sure to enter a value from 1 - 8\n")
-            val = input("Enter a menu number: ")
+            val = input("Select: ")
         
         return self.process_action(int(val))
     
@@ -123,9 +123,9 @@ class CustomerApp:
     
     def name(self):
         while True:
-            name = input("Enter customer name: ")
+            name = input("Please enter customer's name: ")
             if self.nameValidator(name): break
-            print('Please only enter letters or spaces fro customer name')
+            print("Please only enter letters or spaces for customer's name")
 
         if not name: raise Exception('Invalid name')
         return self.clean(name)
@@ -133,9 +133,9 @@ class CustomerApp:
     def age(self):
         age = ''
         while True:
-            age = input("Enter customer age: ")
+            age = input("Please enter customer's age: ")
             if age.isnumeric() or age == '': break
-            print('Please only enter numbers for customer age')
+            print("Please only enter numbers for customer's age")
 
         return age.strip()
     
@@ -145,7 +145,7 @@ class CustomerApp:
         while True:
             number = input("Please enter the customer's number: ")
             if self.numberValidator(number): break
-            print('Please only enter numbers for customer''s numbers')
+            print("Please only enter numbers for customer's numbers")
 
         return number.strip()
     
@@ -177,8 +177,6 @@ class CustomerApp:
 The program's starting point.
 '''
 def main():
-    print("\nAssignment2\n")
-
     app = CustomerApp()
     app.start()
 

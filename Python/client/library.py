@@ -23,7 +23,7 @@ class HTTPLibrary:
                 responseHeader, responseBody = self.ResponseFormat(s)
 
                 # Print server response
-                print("Response: ")
+                print("Server response: ")
                 print(responseBody)
 
     def RequestFormat(self, HOST, HTTP_METHOD, PATH, HEADERS, DATA):
@@ -37,7 +37,7 @@ class HTTPLibrary:
 
         if DATA is not None:
             DATA = json.dumps(DATA)
-            request += "Content-Length: " + str(len(DATA)) + "\r\n"
+            request += "Length of data: " + str(len(DATA)) + "\r\n"
             request += "\r\n"
             request += DATA + "\r\n"
 

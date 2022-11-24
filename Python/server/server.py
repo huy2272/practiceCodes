@@ -1,7 +1,7 @@
 from server_library import ServerLib
 
 def main():
-    print("\n=====[Server]=====\n")
+    print("\nServer's information\n")
 
     http = ServerLib()
     port = 65432

@@ -1,6 +1,6 @@
 import socket
 from http.client import responses
-from dataHandler import FileHandler
+from dataHandler import DataHandler
 from threading import Thread
 import json
 
@@ -8,7 +8,7 @@ import json
 class ServerLib:
     def __init__(self): 
         # TODO: change verbose to false
-        self.fileHandler = FileHandler()
+        self.fileHandler = DataHandler()
 
     def startServer(self, PORT=9999, DIRECTORY = "data.txt"):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:

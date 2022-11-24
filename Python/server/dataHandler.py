@@ -1,8 +1,7 @@
 from pathlib import Path
 from Modules.FileLock import FileLock
 
-class FileHandler:
-
+class DataHandler:
     def __init__(self):
         # when in debug mode, use 'server/data.txt' instead
         self.default = 'data.txt'
@@ -56,7 +55,7 @@ class FileHandler:
     def find(self, name):
         if name not in self.database:
             return {
-                'data': f'Customer not found: {name}'
+                'data': f'{name} not found in database'
             }
         
         data = '|'.join([name] + self.database[name])
@@ -69,7 +68,7 @@ class FileHandler:
         customer_name, age, address, number = customer.values()
         if name in self.database:
             return {
-                'data': f'Customer already exists: {name}'
+                'data': f'{name} already exists in database'
             }
         
         self.count += 1
@@ -77,13 +76,13 @@ class FileHandler:
         
         self.save_database()
         return {
-                'data': f'Customer added: {name}'
+                'data': f'{name} was added to database'
             }
     
     def delete(self, name):
         if name not in self.database:
             return {
-                'data': f'Customer does not exists: {name}'
+                'data': f'{name} does not exists in database'
             }
         
         self.count -= 1
@@ -91,13 +90,13 @@ class FileHandler:
         del self.database[name]
         self.save_database()
         return {
-            'data': f'Customer deleted: {name}'
+            'data': f'{name} was deleted from database'
         }
     
     def update(self, name, customer):
         if name not in self.database:
             return {
-                'data': f'Customer does not exists: {name}'
+                'data': f'{name} does not exists in database'
             }
         
         
@@ -113,7 +112,7 @@ class FileHandler:
 
         self.save_database()
         return {
-                'data': f'Customer updated: {name}'
+                'data': f'{name} was updated in database'
             }
 
     def save_database(self):

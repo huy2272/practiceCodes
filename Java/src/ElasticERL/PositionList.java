@@ -8,8 +8,8 @@ public interface PositionList<E> {
 	public Position<E> prev(Position<E> p); 
 	public void addFirst(E v);
 	public void addLast(E v);
-	public void addAfter(Position<E> p, E v); 
-	public void addBefore(Position<E> p, E v); 
+	public Position<E> addAfter(Position<E> p, E v); 
+	public Position<E> addBefore(Position<E> p, E v); 
 	public E remove(Position<E> p);
 	public E set(Position<E> p, E v);
 }

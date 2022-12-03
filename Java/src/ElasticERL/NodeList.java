@@ -55,8 +55,6 @@ public class NodeList<E> implements PositionList<E> {
 		return tail.getPrev();
 	}
 
-	// begin#fragment first
-	/** Returns the position before the given one; O(1) time */
 	public Position<E> prev(Position<E> p) {
 		ListNode<E> v = checkPosition(p);
 		ListNode<E> prev = v.getPrev();
@@ -65,8 +63,6 @@ public class NodeList<E> implements PositionList<E> {
 		return prev;
 	}
 
-	// end#fragment first
-	/** Returns the position after the given one; O(1) time */
 	public Position<E> next(Position<E> p){
 		ListNode<E> v = checkPosition(p);
 		ListNode<E> next = v.getNext();
@@ -75,21 +71,23 @@ public class NodeList<E> implements PositionList<E> {
 		return next;
 	}
 
-	public void addBefore(Position<E> p, E element){
+	public Position<E> addBefore(Position<E> p, E element){
 		ListNode<E> v = checkPosition(p);
 		counter++;
 		ListNode<E> newNode = new ListNode<E>(element, v, v.getPrev());
 		v.getPrev().setNext(newNode);
 		v.setPrev(newNode);
+		return v.getPrev()	;
 	}
 
 
-	public void addAfter(Position<E> p, E element) {
+	public Position<E> addAfter(Position<E> p, E element) {
 		ListNode<E> v = checkPosition(p);
 		counter++;
 		ListNode<E> newNode = new ListNode<E>(element, v.getNext(), v);
 		v.getNext().setPrev(newNode);
 		v.setNext(newNode);
+		return v.getNext();
 	}
 
 	public void addFirst(E element) {
@@ -112,10 +110,10 @@ public class NodeList<E> implements PositionList<E> {
 	public E remove(Position<E> p){
 		ListNode<E> v = checkPosition(p);
 		counter--;
-		ListNode<E> vPrev = v.getPrev();
-		ListNode<E> vNext = v.getNext();
-		vPrev.setNext(vNext);
-		vNext.setPrev(vPrev);
+		ListNode<E> prev = v.getPrev();
+		ListNode<E> next = v.getNext();
+		prev.setNext(next);
+		next.setPrev(prev);
 		E vElem = v.getElement();
 		v.setNext(null);
 		v.setPrev(null);
@@ -124,10 +122,29 @@ public class NodeList<E> implements PositionList<E> {
 
 	public E set(Position<E> p, E element){
 		ListNode<E> v = checkPosition(p);
-		E oldElt = v.getElement();
+		E oldVal = v.getElement();
 		v.setElement(element);
-		return oldElt;
+		return oldVal;
+	}
+	
+	@Override
+	public String toString() {
+		return "NodeList [ current="+ null + ", counter=" + counter + ", head=" + head.getNext().getElement() + ", tail=" + tail.getPrev().getElement() + "]";
 	}
 
+	public static void main(String[] args) {
+		NodeList<Integer> a = new NodeList<>();
+		a.addLast(10);
+		a.addLast(11);
+		a.addLast(12);
+		System.out.println(a.toString());
+		Position<Integer> p = a.last();
+		System.out.println(p.getElement().toString());
+		a.remove(p);
+		p = a.last();
+		Position<Integer> q = a.addAfter(p, 100);
+		System.out.println(p.getElement().toString());
+		System.out.println(a.toString());
+	}
 }
 

@@ -1,5 +1,7 @@
 package NodePositionList;
 
+import java.util.Iterator;
+
 public class NodeList<E> implements PositionList<E> {
 	int counter;
 	ListNode<E> head, tail;
@@ -128,5 +130,5 @@ public class NodeList<E> implements PositionList<E> {
 		v.setElement(element);
 		return oldVal;
 	}
-
+	
 }

@@ -1,4 +1,4 @@
-package Algorithm;
+package String;
 
 public class MaxOccuringChar {
 	static char getMaxOccuringChar(String str) {

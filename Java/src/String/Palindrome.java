@@ -1,4 +1,4 @@
-package Algorithm;
+package String;
 
 public class Palindrome {
 //a. Extract off the rightmost digit of your input number. (1234 % 10) = 4

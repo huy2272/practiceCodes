@@ -1,3 +1,6 @@
+import math
+
+
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         str = s.casefold()
